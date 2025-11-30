@@ -25,7 +25,32 @@ Bu projeyi yerel ortamınızda (Minikube) çalıştırmak için aşağıdaki ad�
 
 ### Adım 1: Kümeyi ve Eklentileri Başlatın
 Minikube'u başlatın ve Ingress eklentisini aktif hale getirin.
-
 ```bash
 minikube start --driver=docker
 minikube addons enable ingress
+
+### Adım 2: Docker İmajını Oluşturma
+# Terminali Minikube'un Docker motoruna bağla
+& minikube -p minikube docker-env --shell powershell | Invoke-Expression
+# İmajı build et (Sondaki noktayı unutmayın!)
+docker build -t python-redis-app:v1 .
+
+### Adım 3: Gizli Anahtarları Oluşturma
+kubectl create secret generic my-secret-keys --from-literal=API_KEY=cok_gizli_sifre_123
+
+### Adım 4: Kubernetes Objelerini Uygulama
+# 1. Veritabanı Katmanı (Redis + Kalıcı Disk + Servis)
+kubectl apply -f k8s/redis-pvc.yaml
+kubectl apply -f k8s/redis-deployment.yaml
+kubectl apply -f k8s/redis-service.yaml
+
+# 2. Uygulama Katmanı (Python + Ayarlar + Servis)
+kubectl apply -f k8s/python-config.yaml
+kubectl apply -f k8s/python-deployment.yaml
+kubectl apply -f k8s/python-service.yaml
+
+# 3. Ağ Katmanı (Ingress Kapısı)
+kubectl apply -f k8s/ingress.yaml
+
+### Adım 5: DNS Ayarı
+127.0.0.1 python-app.local
