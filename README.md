@@ -4,7 +4,7 @@ Bu proje, basit bir Python (Flask) uygulamasını ve Redis veritabanını **Kube
 
 Proje, klasik Docker Compose yapısından Kubernetes orkestrasyonuna geçişi ve **Stateful (Durumlu)** uygulama yönetimini gösterir.
 
-## 🏗️ Mimari ve Kullanılan Teknolojiler
+## Mimari ve Kullanılan Teknolojiler
 
 Bu projede aşağıdaki ileri seviye DevOps pratikleri uygulanmıştır:
 
@@ -14,7 +14,7 @@ Bu projede aşağıdaki ileri seviye DevOps pratikleri uygulanmıştır:
 * **Secrets:** API anahtarları gibi hassas veriler `Kubernetes Secrets` kullanılarak şifreli bir şekilde saklandı.
 * **Service Discovery:** Mikroservisler (Python ve Redis) arasındaki iletişim, Kubernetes'in dahili DNS sistemi üzerinden kurgulandı.
 
-## 🚀 Kurulum ve Çalıştırma
+## Kurulum ve Çalıştırma
 
 Bu projeyi yerel ortamınızda (Minikube) çalıştırmak için aşağıdaki adımları sırasıyla uygulayın.
 

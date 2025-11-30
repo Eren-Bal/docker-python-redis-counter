@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-app
+        image: python-redis-app:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        env:
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: python-app-config
+              key: REDIS_HOST
+        - name: MY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: my-secret-keys
+              key: API_KEY
